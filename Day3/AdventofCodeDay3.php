@@ -48,4 +48,55 @@ foreach($lines as $key => $line){
 
 print_r("The value is:". array_sum($array). PHP_EOL);
 
+function getAnArrayWithThreeLine($lines){
+    $array = [];
+    for($i = 0; $i < count($lines); $i+=3){
+        $array[] = [$lines[$i], $lines[$i+1], $lines[$i+2]];
+    }
+    return $array;
+}
+
+$arrayOfThree = getAnArrayWithThreeLine($lines);
+
+
+function getLetter($line1, $line2, $line3) {
+    $letter = '';
+    $line1 = str_split($line1);
+    $line2 = str_split($line2);
+    $line3 = str_split($line3);
+    foreach ($line1 as $key => $value) {
+        if(in_array($value, $line2) && in_array($value, $line3)&& in_array($value, $line1)) {
+            $letter = $value;
+        }
+    }
+    return $letter;
+}
+
+function getTheLetter($array){
+    $letters = [];
+    foreach ($array as $key => $value) {
+        $letter = getLetter($value[0], $value[1], $value[2]);
+        $letters[] = $letter;
+    }
+    return $letters;
+}
+
+$letters = getTheLetter($arrayOfThree);
+
+
+function getTheValueOfTheLetter($letters, $AlphaArray){
+    $values = [];
+    foreach ($letters as $key => $value) {
+        $values[] = $AlphaArray[$value];
+    }
+    return array_sum($values);
+}
+
+$arrayOfThree = getAnArrayWithThreeLine($lines);
+$letter = getTheLetter($arrayOfThree);
+
+$value = getTheValueOfTheLetter($letters, $AlphaArray);
+
+print_r('Value of the leters is :' . $value . PHP_EOL);
+
 ?>

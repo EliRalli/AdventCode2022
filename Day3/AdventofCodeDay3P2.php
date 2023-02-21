@@ -1,6 +1,6 @@
 <?php
 
-$examplecode = file_get_contents("C:\AdventCode2022\Day3\AdventExample.txt");
+$examplecode = file_get_contents("C:\AdventCode2022\Day3\AdventDay3Data.txt");
 
 $lines = explode("\n", $examplecode);
 
@@ -16,7 +16,51 @@ $AlphaArray= [
 
 // seperate the array into groups of three
 $array = [];
-$letter = '';
+$score = 0;
+$value = ValueofLetter($letters, $AlphaArray);
+
+function ArrayThree($lines){
+
+    $array = [];
+    for ($i = 0; $i < count($lines); $i += 3){
+
+        $array[] = [$lines[$i], $lines[$i+1], $lines[$i+2]];
+    }
+    return $array;
+}
+
+$arrayOfThree = ArrayThree($lines);
+
+function Letters($line1, $line2, $line3){
+    $letter = '';
+    $line1 = str_split($line1);
+    $line2 = str_split($line2);
+    $line3 = str_split($line3);
+    foreach ($line1 as $key => $value){
+
+        if(in_array($value, $line2) && in_array($value,$line3) && in_array($value,$line1)){
+
+            $letter = $value;
+        }
+    }
+    return $letter;
+}
+
+
+
+function findCommonLetter($array){
+
+    $letters = [];
+    foreach ($array as $key => $value){
+
+        $letter=Letters($value[0], $value[1], $value[2]);
+        $letters[] = $letter;
+    }
+    return $letters;
+}
+
+$letters = findCommonLetter($arrayOfThree);
+
 function ValueofLetter($letters, $AlphaArray){
 
     $values = [];
@@ -27,31 +71,12 @@ function ValueofLetter($letters, $AlphaArray){
     return array_sum($values);
 }
 
-for ($i = 0; $i < count($lines); $i += 3){
-
-    $array[] = [$lines[$i], $lines[$i+1], $lines[$i+2]];
-
-    $line1 = str_split($line[$i]);
-    $line2 = str_split($line[$i+1]);
-    $line3 = str_split($line[$i+2]);
-    foreach ($line1 as $key => $value){
-
-        if(in_array($value, $line2) && in_array($value,$line3) && in_array($value,$line1)){
-
-            $letter = $value;
-        }
-    }
-
-    foreach ($array as $key => $value){
-
-        $letter= 
-        $letters[]=$letter;
-    }
-
-}
-return $array;
-
-
 // Find the common letter
+
+$arrayThree = ArrayThree($lines);
+$letter = findCommonLetter($arrayThree);
+$value = ValueofLetter($letters, $AlphaArray);
+
+print_r('Value of the leters is :' . $value . PHP_EOL);
 
 // get the point vlaue of the letters
