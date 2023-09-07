@@ -6,27 +6,28 @@
 //puzzle gives us the input of the head movement
 //find how many positions the tail visited at least once
 
-$gridSize = 5000;
+$gridSize = 1000;
 $center = $gridSize / 2; // Center of the grid
 $grid = array_fill(0, $gridSize, array_fill(0, $gridSize, '.'));
 
-// Initial positions of head and tail
 $headX = $center;
 $headY = $center;
 $tailX = $center;
 $tailY = $center;
 
-// Mark the starting position as visited by tail
+
 $grid[$tailY][$tailX] = '#';
 
-// Open the file for reading
+
 $file = fopen('adventDay9input.txt', 'r');
 
 if ($file) {
     while (($line = fgets($file)) !== false) {
+        
         list($direction, $steps) = explode(' ', trim($line));
         
         switch ($direction) {
+
             case 'R': $headX += $steps; break;
             case 'L': $headX -= $steps; break;
             case 'U': $headY -= $steps; break;
@@ -34,6 +35,24 @@ if ($file) {
         }
         
         if (abs($headX - $tailX) > 1 || abs($headY - $tailY) > 1) {
+
+            if($headX > $tailX){
+
+                $tailX++;
+
+            } elseif($headX < $tailX){
+
+                $tailX--;
+            }
+            if($headY > $tailY){
+
+                $tailY++;
+
+            } elseif($headY < $tailY){
+
+                $tailY--;
+            }
+        } else{
             $tailX = $headX;
             $tailY = $headY;
         }
