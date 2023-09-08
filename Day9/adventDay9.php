@@ -33,7 +33,6 @@ if ($file) {
             case 'U': $headY -= $steps; break;
             case 'D': $headY += $steps; break;
         }
-        
         if (abs($headX - $tailX) > 1 || abs($headY - $tailY) > 1) {
 
             if($headX > $tailX){
